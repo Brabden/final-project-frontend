@@ -5,7 +5,7 @@ const KeyboardList: React.FC = () => {
   const [keyboards, setKeyboards] = useState<any[]>([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/keyboards/")
+    axios.get("http://localhost:8000/keyboards/")
     .then(response => {
       setKeyboards(response.data);
     })
@@ -21,7 +21,7 @@ const KeyboardList: React.FC = () => {
         {keyboards.map((keyboard) => (
           <div key={keyboard.id}>
             <h3>{keyboard.name}</h3>
-            <img src={keyboard.image} alt={keyboard.name} />
+            <img className="keyboard-img" src={keyboard.image_url} alt={keyboard.name} />
             <p>{keyboard.description}</p>
             <span>${keyboard.price}</span>
             <button>Add to Cart</button>
