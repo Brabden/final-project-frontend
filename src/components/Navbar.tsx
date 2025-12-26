@@ -5,8 +5,8 @@ const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <span className="logo">⌨️</span>
-                <span className="brand">Keydom <span className="sub-brand">(Keyboard Kingdom)</span></span>
+                <span className="logo"><a href="/">⌨️</a></span>
+                <span className="brand"><a href="/">Pan</a></span>
             </div>
 
             <ul className="main-navbar-links">

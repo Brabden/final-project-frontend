@@ -17,15 +17,25 @@
     font-size: 22px;
 }
 
+.logo:hover {
+    transform: scale(1.2);
+}
+
+.logo a {
+    text-decoration: none;
+}
+
 .brand {
     font-weight: 600;
     font-size: 16px;
 }
 
-.sub-brand {
-    font-weight: 400;
-    color: #666;
-    font-size: 14px;
+.brand:hover {
+    transform: scale(1.1);
+}
+
+.brand a {
+    text-decoration: none;
 }
 
 .main-navbar-links {
@@ -54,6 +64,10 @@
     text-decoration: none;
     color: #000;
     font-size: 14px;
+}
+
+.auth:hover {
+    text-decoration: underline;
 }
 
 .cart {

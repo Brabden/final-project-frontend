@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About"
 import Support from "../pages/Support"
-import Cart from "../pages/Support"
+import Cart from "../pages/Cart"
 
 const AppRoutes: React.FC = () => {
     return (
