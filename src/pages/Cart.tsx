@@ -1,71 +1,118 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
-interface CartItem {
-    id: number;
-    product: string;
-    quantity: number;
-    price: number;
-    total_price: number;
-}
+import { useCartContext } from "../context/CartContext";
+import "./Cart.css";
+import { useState } from "react";
 
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  useEffect(() => {
-    axios.get("http://localhost:8000/cart/get_cart/")
-      .then((response) => {
-        setCartItems(response.data.cart_items);
-        setTotalPrice(response.data.total_price);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the cart.");
-      });
-  }, []);
-
-  const handleRemoveFromCart = (itemId: number) => {
-    axios
-      .delete(`http://localhost:8000/cart/remove_from_cart/${itemId}/`)
-      .then(() => {
-        const updatedCartItems = cartItems.filter(item => item.id !== itemId);
-        setCartItems(updatedCartItems);
-
-        const updatedTotalPrice = updatedCartItems.reduce(
-            (acc, item) => acc + item.total_price,
-            0
-        );
-        setTotalPrice(updatedTotalPrice)
-      })
-      .catch((error) => {
-        console.error(
-          "There was an error removing the item from the cart",
-          error
-        );
-      });
-  };
+  const { cartItems, totalPrice, removeFromCart, clearCart } = useCartContext();
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const isCartEmpty = cartItems.length === 0;
 
   return (
-    <div>
-      <h1>Your Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty!</p>
-      ) : (
-        <div>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.id}>
-                <h3>
-                  {item.product} - {item.quantity} x ${item.price}
-                </h3>
-                <p>Total: ${item.total_price}</p>
-                <button onClick={() => handleRemoveFromCart(item.id)}>
-                  Remove Item
+    <div className="cart-page">
+      <h1 className="cart-title">review your cart</h1>
+      <div className="cart-layout">
+        <div className="cart-items">
+          {cartItems.length === 0 ? (
+            <p>your cart is empty!</p>
+          ) : (
+            cartItems.map((item) => (
+              <div className="cart-item" key={item.id}>
+                <img src={item.image_url} alt={item.product} />
+                <div className="cart-item-info">
+                  <h3>{item.product}</h3>
+                  <p>${item.price.toFixed(2)}</p>
+
+                  <button
+                    className="remove"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="cart-item-total">
+                  ${item.total_price.toFixed(2)}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        <aside className="cart-summary">
+          <h2>order details</h2>
+          <div className="summary-row">
+            <span>subtotal</span>
+            <span>${totalPrice.toFixed(2)}</span>
+          </div>
+
+          <div className="summary-row muted">
+            <span>taxes</span>
+            <span>calculated at checkout</span>
+          </div>
+          <div className="summary-row muted">
+            <span>shipping</span>
+            <span>calculated at checkout</span>
+          </div>
+
+          <div className="summary-total">
+            <span>total</span>
+            <span>${totalPrice.toFixed(2)}</span>
+          </div>
+          <button
+            className="checkout-btn"
+            disabled={isCartEmpty}
+            onClick={() => {
+              if (!isCartEmpty) setShowCheckoutModal(true);
+            }}
+          >
+            checkout
+          </button>
+        </aside>
+      </div>
+      {/* Modal */}
+      {showCheckoutModal && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            {!orderPlaced ? (
+              <>
+                <h3>demo checkout</h3>
+                <p>
+                  this is a demo project. no real purchases are purchased. in a
+                  sense all items are free!
+                </p>
+                <div className="modal-actions">
+                  <button
+                    className="secondary"
+                    onClick={() => setShowCheckoutModal(false)}
+                  >
+                    cancel
+                  </button>
+                  <button
+                    className="primary"
+                    onClick={async () => {
+                      await clearCart();
+                      setOrderPlaced(true);
+                    }}
+                  >
+                    place order
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3>order placed! 🎉</h3>
+                <p>thank you for trying this demo checkout.</p>
+                <button
+                  className="primary"
+                  onClick={() => {
+                    setShowCheckoutModal(false);
+                    setOrderPlaced(false);
+                  }}
+                >
+                  close
                 </button>
-              </li>
-            ))}
-          </ul>
-          <h2>Total Price : ${totalPrice}</h2>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>

@@ -10,32 +10,34 @@
 .navbar-left {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.logo {
-    font-size: 22px;
-}
-
-.logo:hover {
-    transform: scale(1.2);
-}
-
-.logo a {
     text-decoration: none;
+    color: inherit;
+}
+
+.logo-brand {
+    display: flex;
+    color: #5b5b71;
+    align-items: center;
+    text-decoration: none;
+    gap: 6px;
+}
+
+.logo-icon {
+    stroke-width: 1.75;
+    color: #5b5b71;
+    width: 26px;
+    height: 26px;
 }
 
 .brand {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 26px;
+    color: #5b5b71;
+    transition: transform 0.2s;
 }
 
 .brand:hover {
     transform: scale(1.1);
-}
-
-.brand a {
-    text-decoration: none;
 }
 
 .main-navbar-links {
@@ -46,7 +48,7 @@
 
 .main-navbar-links a{
     text-decoration: none;
-    color: #000;
+    color: #5b5b71;
     font-size: 14px;
 }
 
@@ -62,7 +64,7 @@
 
 .auth {
     text-decoration: none;
-    color: #000;
+    color: #5b5b71;
     font-size: 14px;
 }
 
@@ -71,6 +73,84 @@
 }
 
 .cart {
-    font-size: 18px;
+    position: relative;
+    padding: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-icon {
+    width: 22px;
+    height: 22px;
+    color: #5b5b71;
+    stroke-width: 1.75;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    background-color: #5b5b71;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 999px;
+}
+
+.cart:hover .cart-icon {
+    opacity: 0.8;
+}
+
+.cart:active {
+    transform: scale(0.95);
+}
+
+.signup {
     text-decoration: none;
+    color: #5b5b71;
+    font-size: 14px;
+}
+
+.signup:hover {
+    text-decoration: underline;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #111;
+    text-decoration: none;
+    color: #5b5b71;
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.profile-icon {
+    width: 20px;
+    height: 20px;
+    color: #666;
+}
+
+.navbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-top: 0;
+    height: 36px;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.navbar-btn:hover {
+    background: #000;
 }
