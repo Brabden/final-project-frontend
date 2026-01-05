@@ -7,8 +7,7 @@ interface Props {
 }
 
 const MiniCart: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { cartItems, totalPrice, updateQuantity } =
-    useCartContext();
+  const { cartItems, totalPrice, updateQuantity } = useCartContext();
 
   if (!isOpen) return null;
 
@@ -36,12 +35,27 @@ const MiniCart: React.FC<Props> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="cart-item-info">
                   <strong>{item.product}</strong>
-                  
-                  </div>
-                  <div className="cart-item-price">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </div>
                 </div>
+                <div className="cart-item-price">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </div>
+                <div className="quantity-controls">
+                  <button
+                    className="qty-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  >
+                    {" "}
+                    -
+                  </button>
+                  <span className="qty">{item.quantity}</span>
+                  <button
+                    className="qty-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             ))
           )}
         </div>
