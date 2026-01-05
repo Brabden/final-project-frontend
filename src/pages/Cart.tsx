@@ -3,7 +3,7 @@ import "./Cart.css";
 import { useState } from "react";
 
 const Cart: React.FC = () => {
-  const { cartItems, totalPrice, removeFromCart, clearCart } = useCartContext();
+  const { cartItems, totalPrice, removeFromCart, updateQuantity, clearCart } = useCartContext();
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const isCartEmpty = cartItems.length === 0;
@@ -21,7 +21,21 @@ const Cart: React.FC = () => {
                 <img src={item.image_url} alt={item.product} />
                 <div className="cart-item-info">
                   <h3>{item.product}</h3>
-                  <p>${item.price.toFixed(2)}</p>
+                  <p>${item.price.toFixed(2)} x {item.quantity}</p>
+                  <div className="quantity-controls">
+                    <button
+                      className="qty-btn"
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    > -
+                    </button>
+                    <span className="qty">{item.quantity}</span>
+                    <button
+                      className="qty-btn"
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      +
+                    </button>
+                  </div>
 
                   <button
                     className="remove"

@@ -13,9 +13,15 @@ interface Keyboard {
 
 interface Props {
   searchTerm: string;
+  limit?: number;
+  showActions?: boolean;
 }
 
-const KeyboardList: React.FC<Props> = ({ searchTerm }) => {
+const KeyboardList: React.FC<Props> = ({
+  searchTerm,
+  limit,
+  showActions = true,
+}) => {
   const { addToCart } = useCartContext();
   const [keyboards, setKeyboards] = useState<Keyboard[]>([]);
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
@@ -52,59 +58,68 @@ const KeyboardList: React.FC<Props> = ({ searchTerm }) => {
     keyboard.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const displayedKeyboards = limit
+    ? filteredKeyboards.slice(0, limit)
+    : filteredKeyboards;
+
   return (
     <div className="keyboard-list">
-      {filteredKeyboards.map((keyboard) => (
+      {displayedKeyboards.map((keyboard) => (
         <div key={keyboard.id} className="keyboard-card">
           <img
             className="keyboard-img"
             src={keyboard.image_url}
             alt={keyboard.name}
           />
+
           <div className="keyboard-info">
             <h3 className="keyboard-name">{keyboard.name}</h3>
-            <p className="keyboard-description">{keyboard.description}</p>
+            {showActions && (
+              <p className="keyboard-description">{keyboard.description}</p>
+            )}
             <div className="keyboard-price">${keyboard.price}</div>
           </div>
-          <div>
-            <div className="keyboard-actions">
-              <div className="quantity-controls">
-                <button
-                  className="qty-btn"
-                  onClick={() =>
-                    handleQuantityChange(
-                      keyboard.id,
-                      Math.max(1, (quantities[keyboard.id] || 1) - 1)
-                    )
-                  }
-                >
-                  {" "}
-                  -{" "}
-                </button>
 
-                <span className="qty">{quantities[keyboard.id] || 1}</span>
+          {showActions && (
+            <div>
+              <div className="keyboard-actions">
+                <div className="quantity-controls">
+                  <button
+                    className="qty-btn"
+                    onClick={() =>
+                      handleQuantityChange(
+                        keyboard.id,
+                        Math.max(1, (quantities[keyboard.id] || 1) - 1)
+                      )
+                    }
+                  >
+                    -
+                  </button>
 
-                <button
-                  className="qty-btn"
-                  onClick={() =>
-                    handleQuantityChange(
-                      keyboard.id,
-                      (quantities[keyboard.id] || 1) + 1
-                    )
-                  }
-                >
-                  {" "}
-                  +{" "}
-                </button>
+                  <span className="qty">{quantities[keyboard.id] || 1}</span>
+
+                  <button
+                    className="qty-btn"
+                    onClick={() =>
+                      handleQuantityChange(
+                        keyboard.id,
+                        (quantities[keyboard.id] || 1) + 1
+                      )
+                    }
+                  >
+                    +
+                  </button>
+                </div>
               </div>
+
+              <button
+                className="add-to-cart-btn"
+                onClick={() => handleAddToCart(keyboard.id)}
+              >
+                {addedToCart === keyboard.id ? "Added!" : "Add to Cart"}
+              </button>
             </div>
-            <button
-              className="add-to-cart-btn"
-              onClick={() => handleAddToCart(keyboard.id)}
-            >
-              {addedToCart === keyboard.id ? "Added!" : "Add to Cart"}
-            </button>
-          </div>
+          )}
         </div>
       ))}
     </div>

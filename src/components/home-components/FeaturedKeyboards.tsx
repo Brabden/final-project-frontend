@@ -1,13 +1,14 @@
 import "./FeaturedKeyboards.css";
+import KeyboardList from "../KeyboardList";
 
 const FeaturedKeyboards: React.FC = () => {
   return (
     <section className="featured">
-      <h2 className="section-title">featured</h2>
-
-      <div className="featured-grid"></div>
+      <h2 className="section-title">featured products</h2>
+      <KeyboardList searchTerm="" limit={2} showActions={false} />
     </section>
   );
 };
 
 export default FeaturedKeyboards;
+ 

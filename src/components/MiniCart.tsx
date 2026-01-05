@@ -36,20 +36,7 @@ const MiniCart: React.FC<Props> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="cart-item-info">
                   <strong>{item.product}</strong>
-                  <div className="quantity-controls">
-                    <button
-                      className="qty-btn"
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    > -
-                    </button>
-                    <span className="qty">{item.quantity}</span>
-                    <button
-                      className="qty-btn"
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                  
                   </div>
                   <div className="cart-item-price">
                     ${(item.price * item.quantity).toFixed(2)}

@@ -64,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ refresh, onCartClick }) => {
               <UserCircle className="profile-icon" aria-hidden />{" "}
               <span>{user.username}</span>
             </Link>
-            <button onClick={logout} className="primary-btn navbar-btn">
+            <button onClick={logout} className="logout-btn">
               Logout
             </button>
           </>

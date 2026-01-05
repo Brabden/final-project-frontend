@@ -1,33 +1,60 @@
 .featured {
-    padding: 60px 40px;
+    padding: 80px 40px;
+    background: #f7f7f7;
+    position: relative;
+}
+
+.featured::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .section-title {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 32px;
 }
 
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 32px;
+    align-items: stretch;
 }
 
 .featured-card {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.75);
     border-radius: 16px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
+    height: 100%;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .featured-card img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
+    height: 200px;
+    object-fit: contain;
     border-radius: 12px;
-    background: #f3f3f3;
+    background: #f4f4f4;
     margin-bottom: 16px;
+}
+
+.featured-card h3 {
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.featured-card .price {
+    font-weight: 600;
+    font-size: 18px;
 }
 

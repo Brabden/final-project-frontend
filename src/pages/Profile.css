@@ -7,7 +7,8 @@
 .page-title {
   font-size: 28px;
   font-weight: 600;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
+  margin-left: 20px;
 }
 
 .card {
@@ -48,9 +49,10 @@
   border-color: #999;
 }
 
-.primary-btn {
+.save-change-btn {
   margin-top: 12px;
   padding: 10px 16px;
+  width: 145px;
   border-radius: 8px;
   border: none;
   background: #111;
@@ -60,7 +62,7 @@
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.primary-btn:hover {
+.save-change-btn:hover {
   background: #00000083;
 }
 

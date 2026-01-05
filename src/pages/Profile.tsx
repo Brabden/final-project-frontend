@@ -92,7 +92,7 @@ const Profile: React.FC = () => {
           />
         </div>
 
-        <button className="primary-btn" onClick={updateProfile}>
+        <button className="save-change-btn" onClick={updateProfile}>
           save changes
         </button>
       </div>
