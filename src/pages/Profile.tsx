@@ -12,6 +12,25 @@ const Profile: React.FC = () => {
   const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("access_token");
+        if (!token) return;
+
+        const res = await axios.get("http://localhost:8000/profile/", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUsername(res.data.username);
+        setEmail(res.data.email);
+      } catch (err) {
+        console.error("Failed to load profile", err);
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
     if (!message) return;
 
     const timer = setTimeout(() => {
@@ -27,7 +46,7 @@ const Profile: React.FC = () => {
       const payload: any = {};
       if (email.trim()) payload.email = email;
       if (username.trim()) payload.username = username;
-      await axios.put("http://localhost:8000/update-profile", payload, {
+      await axios.put("http://localhost:8000/update-profile/", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMessage("Profile updated successfully!");
