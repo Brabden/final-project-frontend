@@ -1,5 +1,6 @@
 import { useCartContext } from "../context/CartContext";
 import "./MiniCart.css";
+import { X } from "lucide-react";
 
 interface Props {
   isOpen: boolean;
@@ -15,14 +16,29 @@ const MiniCart: React.FC<Props> = ({ isOpen, onClose }) => {
     <div className="cart-overlay" onClick={onClose}>
       <aside className="cart-drawer" onClick={(e) => e.stopPropagation()}>
         <div className="cart-header">
-          <h2>Your Cart</h2>
+          <h2>your cart</h2>
           <button className="close-btn" onClick={onClose}>
-            x
+            <X />
           </button>
         </div>
         <div className="cart-items">
           {cartItems.length === 0 ? (
-            <p className="empty">Your cart is empty</p>
+            <>
+              <div className="cart-empty-wrapper">
+                <div className="cart-empty">
+                  <p className="empty">your cart is empty</p>
+                  <a href="/shop">
+                    <button className="checkout-btn">continue shopping</button>
+                  </a>
+                </div>
+                <div className="account-prompt">
+                  <p className="account-question">have an account?</p>
+                  <p className="login-prompt">
+                    <a href="/login">log in</a> to checkout faster
+                  </p>
+                </div>
+              </div>
+            </>
           ) : (
             cartItems.map((item) => (
               <div key={item.id} className="cart-item">
@@ -65,9 +81,17 @@ const MiniCart: React.FC<Props> = ({ isOpen, onClose }) => {
             <span>Total</span>
             <strong>${totalPrice.toFixed(2)}</strong>
           </div>
-          <a href="/cart" className="checkout-btn">
+          <button
+            className="checkout-btn"
+            disabled={cartItems.length === 0}
+            onClick={() => {
+              if (cartItems.length > 0) {
+                window.location.href = "/cart";
+              }
+            }}
+          >
             review order
-          </a>
+          </button>
         </div>
       </aside>
     </div>

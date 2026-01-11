@@ -52,6 +52,7 @@
     border: none;
     font-size: 1.25rem;
     cursor: pointer;
+    color: #5b5a6f;
 }
 
 .cart-items {
@@ -186,4 +187,45 @@
 
 .checkout-btn:hover {
     background: #4a495d;
+}
+
+.empty {
+    font-size: 24px;
+}
+
+.account-question {
+    font-size: 24px;
+}
+
+.login-prompt a {
+    color: #5b5a6f;
+    text-decoration: underline;
+}
+
+.cart-empty-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.checkout-btn:disabled {
+    background: #ccc;
+    color: #777;
+    cursor: not-allowed;
 }

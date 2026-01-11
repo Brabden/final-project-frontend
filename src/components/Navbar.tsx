@@ -3,7 +3,8 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../hooks/axios";
 import { useCartContext } from "../context/CartContext";
-import { ShoppingBag, Keyboard, UserCircle } from "lucide-react";
+import { ShoppingBag, Keyboard, UserCircle, User } from "lucide-react";
+import LoginDropdown from "./LoginDropdown";
 
 interface User {
   username: string;
@@ -41,19 +42,19 @@ const Navbar: React.FC<NavbarProps> = ({ refresh, onCartClick }) => {
       <div className="navbar-left">
         <Link to="/" className="logo-brand">
           <Keyboard className="logo-icon" />
-          <span className="brand">Pan</span>
+          <span className="brand">pan</span>
         </Link>
       </div>
 
       <ul className="main-navbar-links">
         <li>
-          <a href="/shop">Shop</a>
+          <a href="/shop">shop</a>
         </li>
         <li>
-          <a href="/about">About</a>
+          <a href="/about">about</a>
         </li>
         <li>
-          <a href="/support">Support</a>
+          <a href="/support">support</a>
         </li>
       </ul>
 
@@ -70,12 +71,10 @@ const Navbar: React.FC<NavbarProps> = ({ refresh, onCartClick }) => {
           </>
         ) : (
           <>
-            <a href="/login" className="auth">
-              Login
-            </a>
-            <a href="/signup" className="signup">
-              Signup
-            </a>
+            <LoginDropdown
+              onLogin={() => navigate("/login")}
+              onSignup={() => navigate("/signup")}
+            />
           </>
         )}
         <button
