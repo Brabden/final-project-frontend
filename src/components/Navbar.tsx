@@ -3,8 +3,9 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../hooks/axios";
 import { useCartContext } from "../context/CartContext";
-import { ShoppingBag, Keyboard, UserCircle, User } from "lucide-react";
-import LoginDropdown from "./LoginDropdown";
+import { ShoppingBag, Keyboard, UserCircle, User, Search } from "lucide-react";
+import SearchOverlay from "./SearchOverlay";
+import AccountMenu from "./AccountMenu";
 
 interface User {
   username: string;
@@ -19,9 +20,9 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ refresh, onCartClick }) => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
-
   const { cartItems } = useCartContext();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     axiosInstance
@@ -38,56 +39,55 @@ const Navbar: React.FC<NavbarProps> = ({ refresh, onCartClick }) => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
-        <Link to="/" className="logo-brand">
-          <Keyboard className="logo-icon" />
-          <span className="brand">pan</span>
-        </Link>
-      </div>
+    <>
+      <nav className="navbar">
+        <div className="navbar-left">
+          <Link to="/" className="logo-brand">
+            <Keyboard className="logo-icon" />
+            <span className="brand">pan</span>
+          </Link>
+        </div>
 
-      <ul className="main-navbar-links">
-        <li>
-          <a href="/shop">shop</a>
-        </li>
-        <li>
-          <a href="/about">about</a>
-        </li>
-        <li>
-          <a href="/support">support</a>
-        </li>
-      </ul>
+        <ul className="main-navbar-links">
+          <li>
+            <a href="/shop">shop</a>
+          </li>
+          <li>
+            <a href="/about">about</a>
+          </li>
+          <li>
+            <a href="/support">support</a>
+          </li>
+        </ul>
 
-      <div className="navbar-right">
-        {user ? (
-          <>
-            <Link to="/profile" className="user">
-              <UserCircle className="profile-icon" aria-hidden />{" "}
-              <span>{user.username}</span>
-            </Link>
-            <button onClick={logout} className="logout-btn">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <LoginDropdown
-              onLogin={() => navigate("/login")}
-              onSignup={() => navigate("/signup")}
-            />
-          </>
-        )}
-        <button
-          type="button"
-          className="cart"
-          onClick={onCartClick}
-          aria-label="Open cart"
-        >
-          <ShoppingBag className="cart-icon" />
-          {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
-        </button>
-      </div>
-    </nav>
+        <div className="navbar-right">
+              <AccountMenu
+                user={user}
+                onLogin={() => navigate("/login")}
+                onSignup={() => navigate("/signup")}
+                onLogout={logout}
+              />
+              
+          <button
+            className="search-trigger"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search"
+          >
+            <Search />
+          </button>
+          <button
+            type="button"
+            className="cart"
+            onClick={onCartClick}
+            aria-label="Open cart"
+          >
+            <ShoppingBag className="cart-icon" />
+            {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+          </button>
+        </div>
+      </nav>
+      {searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}
+    </>
   );
 };
 

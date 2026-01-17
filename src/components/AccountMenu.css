@@ -5,10 +5,11 @@
 }
 
 .avatar-btn {
-    width: 36px;
     height: 36px;
+    padding: 0 12px;
     display: flex;
     border: none;
+    gap: 8px;
     align-items: center;
     justify-content: center;
     background: transparent;
@@ -45,7 +46,21 @@
     background: #FEE8DE;
 }
 
+.profile-dropdown a {
+    text-decoration: none;
+    color: #7a7a7a;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-size: 16px;
+    text-align: center;
+    text-transform: lowercase;
+    letter-spacing: 0.4px;
+}
 
+.profile-dropdown a:hover {
+    background: #f5f5f5;
+    color: #000;
+}
 
 .profile-dropdown button {
     background: none;
@@ -62,4 +77,21 @@
 .profile-dropdown button:hover {
     background: #f5f5f5;
     color: #000;
+}
+
+.profile-dropdown .danger {
+    color: #9a6b6b;
+}
+
+.profile-dropdown .danger:hover {
+    background: #fdf0f0;
+    color: #7a2e2e;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: lowercase;
+    color: #5a5a6e;
 }

@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import Home from "../pages/Home";
+import ProductPage from "../pages/ProductPage";
 
 interface AppRoutesProps {
     onLogin?: () => void;
@@ -23,6 +24,7 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onLogin }) => {
             <Route path="/login" element={<Login onLogin={onLogin} />} />
             <Route path="/signup" element={<Signup onLogin={onLogin} />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="keyboards/:id" element={<ProductPage />} />
         </Routes>
     );
 };
